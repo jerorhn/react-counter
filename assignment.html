@@ -6,23 +6,35 @@
   </head>
   <body>
     <div>
-      <h1>Assignment <span id="status">Started</span></h1>
+      <h1 id="status">Started</h1>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.1.0/umd/react.development.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.1.0/umd/react-dom.development.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
+
     <script type="text/babel">
       class Status extends React.Component {
+        constructor(props) {
+          super(props);
+          this.state = {status: 'Started'};
+          this.changeStatus = this.changeStatus.bind(this);
+        }
+
+        changeStatus() {
+          const done = this.state.status == 'Started' ? 'Completed!' : "Started";
+          this.setState({status: done});
+        }
+
         render() {
           return (
-            <span>Completed</span>
+            <h1 onClick={this.changeStatus}>{this.props.assign} {this.state.status}!</h1>
           );
         }
       }
 
       ReactDOM.render(
-        <Status />, document.getElementById('status')
+        <Status assign="Checkpoint 4"/>, document.getElementById('status')
       );
     </script>
   </body>
